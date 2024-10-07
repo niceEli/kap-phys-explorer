@@ -378,7 +378,7 @@ export default function scn_physScene() {
         }
 
         if (k.isMouseReleased() && spawningRN) {
-          for (const obj of k.get("physobject:grabbable").reverse()) {
+          for (const obj of k.get("physobject").reverse()) {
             if (obj.isHovering()) {
               jointObjEnd = obj;
               jointObjDiffEnd = k.toWorld(k.mousePos()).sub(obj.pos);
@@ -393,7 +393,7 @@ export default function scn_physScene() {
                   anchor1: jointObjDiff,
                   anchor2: jointObjDiffEnd,
                   restLength: spawnStart.sub(mouse).len(),
-                  stiffness: 0.7,
+                  stiffness: 1.0,
                   damping: 0.1,
                 },
                 parent1: jointObj as GameObj<RapierBodyComp>,
@@ -413,7 +413,7 @@ export default function scn_physScene() {
       case modes.weld:
         const mouseP = k.toWorld(k.mousePos());
         if (k.isMousePressed() && spawningRN == false) {
-          for (const obj of k.get("physobject:grabbable").reverse()) {
+          for (const obj of k.get("physobject").reverse()) {
             if (obj.isHovering()) {
               jointObj = obj;
               jointObjDiff = k.toWorld(k.mousePos()).sub(obj.pos);
@@ -453,7 +453,7 @@ export default function scn_physScene() {
                 },
                 parent1: jointObj as GameObj<RapierBodyComp>,
                 parent2: jointObjEnd as GameObj<RapierBodyComp>,
-              })
+              }),
             ]);
 
             jointObj = null;
